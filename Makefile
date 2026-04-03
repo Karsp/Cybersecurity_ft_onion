@@ -15,7 +15,7 @@ clean:
 
 fclean:
 	@echo "Removing containers, networks, and the tor_metadata volume..."
-	@$(COMPOSE) down -v
+	@docker-compose -f srcs/docker-compose.yml down -v
 	@# Optional: ensure any dangling volumes or images are pruned
 	@docker system prune -f
 

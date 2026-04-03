@@ -8,8 +8,7 @@ services:
       - ssh_password
       - ssh_user
     restart: always
-    expose:
-      - 4242:4242
+    
 
 volumes:
   tor_metadata:
