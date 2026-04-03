@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+  nginx:
+    build: ./requirements/nginx
+    container_name: nginx
+    restart: always
+    networks:
+      - onion_net
+
+  ssh:
+    build: ./requirements/ssh
+    container_name: ssh
+    secrets:
+      - ssh_password
+      - ssh_user
+    restart: always
+    networks:
+      - onion_net
+
+  tor:
+    build: ./requirements/tor
+    container_name: tor
+    depends_on:
+      - nginx
+      - ssh
+    volumes:
+      - tor_metadata:/var/lib/tor/hidden_service
+    restart: always
+    networks:
+      - onion_net
+
+networks:
+  onion_net:
+    driver: bridge
+
+volumes:
+  tor_metadata:
+
+secrets:
+  ssh_password:
+    file: ./secrets/ssh_password.txt
+  ssh_user:
+    file: ./secrets/ssh_user.txt
