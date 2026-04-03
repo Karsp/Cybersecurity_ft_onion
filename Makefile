@@ -13,4 +13,8 @@ clean:
 	@docker-compose -f srcs/docker-compose.yml down --rmi all -v
 	@rm -rf ~/data/tor_metadata
 
-.PHONY: all down re clean
+prune:
+	@echo "Cleaning Docker system..."
+	docker system prune -af --volumes
+
+.PHONY: all down re clean prune

@@ -1,13 +1,12 @@
-FROM alpine:latest
+FROM alpine:3.22
 
-RUN apk add --no-cache tor
+RUN apk add --no-cache tor bash
 
+# Copy config and entrypoint
 COPY conf/torrc /etc/tor/torrc
+COPY tools/entrypoint.sh /usr/local/bin/entrypoint.sh
 
-# Ensure correct permissions for Tor
-RUN mkdir -p /var/lib/tor/hidden_service && \
-    chown -R tor:tor /var/lib/tor
+# Make entrypoint executable
+RUN chmod +x /usr/local/bin/entrypoint.sh
 
-USER tor
-
-CMD ["tor", "-f", "/etc/tor/torrc"]
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
