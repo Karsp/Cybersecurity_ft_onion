@@ -1,36 +1,15 @@
 services:
-  nginx:
-    build: ./requirements/nginx
-    container_name: nginx
-    restart: always
-    networks:
-      - onion_net
-
-  ssh:
-    build: ./requirements/ssh
-    container_name: ssh
+  onion_service:
+    build: ./requirements/onion 
+    container_name: onion_container
+    volumes:
+      - tor_metadata:/var/lib/tor/hidden_service
     secrets:
       - ssh_password
       - ssh_user
     restart: always
-    networks:
-      - onion_net
-
-  tor:
-    build: ./requirements/tor
-    container_name: tor
-    depends_on:
-      - nginx
-      - ssh
-    volumes:
-      - tor_metadata:/var/lib/tor/hidden_service
-    restart: always
-    networks:
-      - onion_net
-
-networks:
-  onion_net:
-    driver: bridge
+    expose:
+      - 4242:4242
 
 volumes:
   tor_metadata:

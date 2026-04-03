@@ -1,6 +1,0 @@
-DataDirectory /var/lib/tor
-HiddenServiceDir /var/lib/tor/hidden_service/
-
-# Internal Docker DNS handles the routing
-HiddenServicePort 80 nginx:80
-HiddenServicePort 4242 ssh:4242
