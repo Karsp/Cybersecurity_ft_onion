@@ -1,0 +1,17 @@
+# The port required by the subject
+Port 4242
+
+# Authentication
+PermitRootLogin no
+PasswordAuthentication yes
+
+# Hardening (bonus)
+PermitEmptyPasswords no
+MaxAuthTries 3
+LoginGraceTime 20
+X11Forwarding no
+AllowAgentForwarding no
+AllowTcpForwarding no
+PrintMotd no
+
+UsePAM yes

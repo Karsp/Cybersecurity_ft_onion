@@ -1,0 +1,20 @@
+services:
+  onion_service:
+    build: ./requirements/onion 
+    container_name: onion_container
+    volumes:
+      - tor_metadata:/var/lib/tor/hidden_service
+    secrets:
+      - ssh_password
+      - ssh_user
+    restart: always
+    
+
+volumes:
+  tor_metadata:
+
+secrets:
+  ssh_password:
+    file: ./secrets/ssh_password.txt
+  ssh_user:
+    file: ./secrets/ssh_user.txt
